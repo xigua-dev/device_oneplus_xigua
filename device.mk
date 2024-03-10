@@ -30,6 +30,7 @@ PRODUCT_SYSTEM_PROPERTIES += \
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
+    $(LOCAL_PATH)/overlay-aosp \
     $(LOCAL_PATH)/overlay-lineage
 
 PRODUCT_PACKAGES += \

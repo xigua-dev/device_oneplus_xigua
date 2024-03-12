@@ -5,9 +5,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/lineage_xigua.mk
+    $(LOCAL_DIR)/aosp_xigua.mk
 
 COMMON_LUNCH_CHOICES := \
-    lineage_xigua-user \
-    lineage_xigua-userdebug \
-    lineage_xigua-eng
+    aosp_xigua-user \
+    aosp_xigua-userdebug \
+    aosp_xigua-eng

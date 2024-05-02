@@ -128,6 +128,14 @@ odm/etc/sensor/config/lux_aod.json
 odm/etc/sensor/config/xigua_qrd_ois_system.json
 odm/etc/sensor/sensor_config.json
 
+# Oplus Touch
+odm/bin/touchDaemon
+odm/bin/hw/vendor-oplus-hardware-touch-V2-service
+odm/lib64/vendor.oplus.hardware.touch-V2-ndk.so
+odm/etc/vintf/manifest/manifest_touch_aidl.xml
+odm/etc/init/init.touchDaemon.rc
+odm/etc/init/vendor-oplus-hardware-touch-V2-service.rc
+
 # Touchscreen firmware
 odm/firmware/tp/22851/libIfp.so
 odm/firmware/tp/22851/LIMIT_S3910_BOE.img

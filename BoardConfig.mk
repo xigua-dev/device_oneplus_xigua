@@ -15,6 +15,10 @@ TARGET_OTA_ASSERT_DEVICE := OP5943L1
 # Display
 TARGET_SCREEN_DENSITY := 500
 
+# IR
+PRODUCT_COPY_FILES += \
+    prebuilts/vndk/v33/arm64/arch-arm64-armv8-a/shared/vndk-core/android.hardware.ir-V1-ndk.so:$(TARGET_COPY_OUT_ODM)/lib64/android.hardware.ir-V1-ndk.so
+
 # Kernel
 TARGET_KERNEL_DIR := $(DEVICE_PATH)-kernel
 KERNEL_MODULE_DIR := $(TARGET_KERNEL_DIR)/modules

@@ -117,6 +117,13 @@ odm/etc/iris_configs.xml
 odm/etc/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel.fw
 odm/etc/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel.xml
 
+# IR
+odm/bin/hw/android.hardware.ir-service
+odm/etc/init/android.hardware.ir-service.rc
+odm/etc/permissions/android.hardware.consumerir.xml
+odm/etc/vintf/manifest/android.hardware.ir-service.xml
+vendor/lib64/hw/consumerir.default.so
+
 # Sensors config
 odm/etc/sensor/config/kailua_mtp_alsps_hw_tcs3720.json
 odm/etc/sensor/config/kailua_mtp_alsps.json

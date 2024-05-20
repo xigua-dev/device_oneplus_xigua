@@ -1,5 +1,5 @@
 ## All proprietary files from this list, unless pinned and noted otherwise,
-## are from OnePlus Ace 2 Pro (PJA110_14.0.0.302(CN01)).
+## are from OnePlus PJA110_14.0.0.701_CN01_C.21
 
 # ACDB
 odm/etc/acdbdata/Audio_Parameter_Version.txt

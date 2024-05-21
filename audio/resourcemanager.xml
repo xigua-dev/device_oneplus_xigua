@@ -76,8 +76,7 @@
         <param key="max_sessions" value="128"/>
         <param key="max_nonTunnel_sessions" value="4"/>
         <param key="logging_level" value ="7" />
-        <!-- huifangfang@Communication.Develop, 2023/04/25, add for 4164490 google rsa4.0 chre nanoapp -->
-        <param key="context_manager_enable" value ="true" />
+        <param key="context_manager_enable" value ="false" />
         <param key="lpi_logging_enable" value ="false" />
         <param key="upd_dedicated_be" value ="true" />
         <param key="signal_handler" value ="true" />
@@ -99,6 +98,8 @@
         <param key="oplus_check_speaker" value="true"/>
         <!-- Zhao.Pan@MULTIMEDIA.AUDIODRIVER.FEEDBACK, 2022/04/12, add for lvvefq err feedback -->
         <param key="oplus_lvve_err_fb" value="true"/>
+        <!-- Zhao.Pan@MULTIMEDIA.AUDIODRIVER.FEEDBACK, 2023/04/19, add for voice call feedback -->
+        <param key="oplus_voice_call_fb" value="false"/>
         <!-- Huangzilong@MULTIMEDIA.AUDIODRIVER.FEEDBACK, 2022/10/09, add for err feedback -->
         <param key="oplus_underrun_fb" value="false"/>
         <param key="oplus_record_low_pressure" value="true"/>
@@ -111,12 +112,16 @@
         <!-- liuhaituo@MULTIMEDIA.AUDIODRIVER, 2022/04/16, Add adsp ssr interfac start -->
         <param key="adsp_ssr_support" value="yes"/>
         <!-- YeWenliang@MULTIMEDIA.AUDIODRIVER, 2022/09/05, Add for mute speaker before device stop -->
-        <param key="mute_speaker_enable" value="true"/>
+        <param key="mute_speaker_enable" value="false"/>
         <!-- Huangzilong@MULTIMEDIA.AUDIODRIVER, 2022/09/20, Add for 4ch aec -->
         <param key="oplus_4ch_aec_enable" value="false"/>
         <param key="oplus_ref_channel_count" value ="2" />
-        <!-- zhangrun@MULTIMEDIA.AUDIODRIVER, 2023/02/22, add for support call record in ocar mode -->
+        <!-- Minyi.Hu@MULTIMEDIA.AUDIODRIVER, 2022/08/26, Add for tfa smart pa power control -->
+        <param key="lowbattery_speaker_profile_support" value="true"/>
+        <!-- Jie.Du@MULTIMEDIA.AUDIODRIVER, 2023/02/22, add for support call record in ocar mode -->
         <param key="ocar_mode_support" value="true"/>
+        <param key="speaker_ringtone_ckv" value="true"/>
+        <param key="speaker_auto_calibration" value="true"/>
     </config_params>
     <config_volume>
         <use_volume_set_param>1</use_volume_set_param>
@@ -154,6 +159,13 @@
         <gain_level_map db="-10.2" level="2"/>
         <gain_level_map db="0" level="1"/>
     </gain_db_to_level_mapping>
+    <!-- Minyi.Hu@MULTIMEDIA.AUDIODRIVER, 2021/12/21, Add for SmartpaGainAdjust-->
+    <smartpa_gain_mapping>
+        <bat_to_dblvl_map battery="100" level="0"/>
+        <bat_to_dblvl_map battery="20" level="2"/>
+        <bat_to_dblvl_map battery="5" level="3"/>
+    </smartpa_gain_mapping>
+    <!-- Minyi.Hu@MULTIMEDIA.AUDIODRIVER, 2021/12/21, Add for SmartpaGainAdjust-->
     <config_voice>
         <vsid>0xB3000000</vsid>
         <loopbackDelay>1000</loopbackDelay>
@@ -302,10 +314,6 @@
                 <name>PAL_STREAM_VOIP_TX</name>
                 <priority>2</priority>
                 <ec_enable>1</ec_enable>
-                <custom-config key="HAC">
-                    <channels>2</channels>
-                    <snd_device_name>voice-dmic-ef-hac</snd_device_name>
-                </custom-config>
             </usecase>
             <usecase>
                 <name>PAL_STREAM_VOICE_CALL</name>
@@ -321,9 +329,15 @@
                     <channels>4</channels>
                     <snd_device_name>quad-mic</snd_device_name>
                 </custom-config>
-                <custom-config key="HAC">
+            </usecase>
+            <usecase>
+                <name>PAL_STREAM_VOICE_RECOGNITION</name>
+                <custom-config key="4ch-aec-mic">
+                    <samplerate>48000</samplerate>
+                    <bit_width>16</bit_width>
+                    <priority>11</priority>
                     <channels>2</channels>
-                    <snd_device_name>voice-dmic-ef-hac</snd_device_name>
+                    <snd_device_name>handset-dmic-endfire</snd_device_name>
                 </custom-config>
             </usecase>
             <usecase>
@@ -408,6 +422,16 @@
                 <custom-config key="normalrec-mic">
                     <channels>2</channels>
                     <snd_device_name>speaker-mic</snd_device_name>
+                </custom-config>
+            </usecase>
+            <usecase>
+                <name>PAL_STREAM_VOICE_RECOGNITION</name>
+                <custom-config key="4ch-aec-mic">
+                    <samplerate>48000</samplerate>
+                    <bit_width>16</bit_width>
+                    <priority>11</priority>
+                    <channels>2</channels>
+                    <snd_device_name>handset-dmic-endfire</snd_device_name>
                 </custom-config>
             </usecase>
         <!--Uncomment these lines instead of above lines if needing to enable EC per custom key
@@ -1200,6 +1224,15 @@
                 </policies>
         </in_stream>
         <in_stream>
+            <name>PAL_STREAM_VOICE_RECOGNITION</name>
+                <policies>
+                    <ec_ref>
+                        <disabled_stream>PAL_STREAM_LOW_LATENCY</disabled_stream>
+                        <disabled_stream>PAL_STREAM_GENERIC</disabled_stream>
+                    </ec_ref>
+                </policies>
+        </in_stream>
+        <in_stream>
             <name>PAL_STREAM_VOICE_UI</name>
                 <policies>
                     <ec_ref>
@@ -1420,6 +1453,13 @@
                 <param snd_name="va-mic-dmic" />
                 <param ec_ref="true" />
             </capture_profile>
+            <capture_profile name="DUAL_MIC_16KHZ_16BIT_BREENO_ECNS">
+                <param sample_rate="16000" />
+                <param channels="2" />
+                <param bit_width="16" />
+                <param snd_name="va-mic-dmic" />
+                <param ec_ref="true" />
+            </capture_profile>
             <capture_profile name="TRI_MIC_16KHZ_16BIT_FFECNS">
                 <param sample_rate="16000" />
                 <param channels="3" />
@@ -1633,8 +1673,8 @@
                 <param out_channels="2" />
                 <operating_modes>
                     <low_power capture_profile_handset="DUAL_MIC_16KHZ_16BIT_RAW_LPI" capture_profile_headset="SINGLE_MIC_16KHZ_16BIT_HEADSET_FFNS"/>
-                    <high_performance capture_profile_handset="DUAL_MIC_16KHZ_16BIT_AIS_ECNS" capture_profile_headset="SINGLE_MIC_16KHZ_16BIT_HEADSET_FFECNS"/>
-                    <high_performance_and_charging capture_profile_handset="DUAL_MIC_16KHZ_16BIT_AIS_ECNS" capture_profile_headset="SINGLE_MIC_16KHZ_16BIT_HEADSET_FFECNS"/>
+                    <high_performance capture_profile_handset="DUAL_MIC_16KHZ_16BIT_BREENO_ECNS" capture_profile_headset="SINGLE_MIC_16KHZ_16BIT_HEADSET_FFECNS"/>
+                    <high_performance_and_charging capture_profile_handset="DUAL_MIC_16KHZ_16BIT_BREENO_ECNS" capture_profile_headset="SINGLE_MIC_16KHZ_16BIT_HEADSET_FFECNS"/>
                 </operating_modes>
                 <sound_model_info>
                     <first_stage_module_params>

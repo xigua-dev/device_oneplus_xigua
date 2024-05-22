@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Per-app refresh rate -->
+    <string name="refresh_title">每个应用程序的刷新率</string>
+    <string name="refresh_summary">为每个应用设置特定的刷新率</string>
+    <string name="refresh_default">默认</string>
+    <string name="refresh_rate_tile_title">刷新率</string>
+
+</resources>

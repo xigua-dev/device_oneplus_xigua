@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:defaultValue="0"
+        android:entries="@array/dimming_entries"
+        android:entryValues="@array/dimming_values"
+        android:key="dimming"
+        android:summary="%s"
+        android:title="@string/dimming_options_title" />
+
+    <com.android.settingslib.widget.FooterPreference
+        android:key="rotate_tweaks_footer"
+        android:title="@string/dimming_options_footer"
+        android:selectable="false">
+    </com.android.settingslib.widget.FooterPreference>
+
+
+</PreferenceScreen>

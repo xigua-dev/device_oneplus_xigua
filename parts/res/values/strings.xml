@@ -22,4 +22,12 @@
     <string name="refresh_default">Default</string>
     <string name="refresh_rate_tile_title">Refresh Rate</string>
 
+    <!-- Dimming -->
+    <string name="dimming_title">Display Dimming</string>
+    <string name="dimming_summary">Options for display dimming</string>
+    <string name="dimming_options_title">Display Dimming</string>
+    <string name="dimming_options_footer">1EM Pulse will cause flickering and color shift in dark mode while switching freshrate (automatically).</string>
+    <string name="dimming_1em">1EM Pulse</string>
+    <string name="dimming_3em">3EM Pulse</string>
+
 </resources>

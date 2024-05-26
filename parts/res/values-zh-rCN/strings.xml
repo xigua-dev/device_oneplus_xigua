@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Per-app refresh rate -->
+    <string name="refresh_title">每个应用程序的刷新率</string>
+    <string name="refresh_summary">为每个应用设置特定的刷新率</string>
+    <string name="refresh_default">默认</string>
+    <string name="refresh_rate_tile_title">刷新率</string>
+
+    <!-- Dimming -->
+    <string name="dimming_title">屏幕调光方式</string>
+    <string name="dimming_summary">切换屏幕调光选项</string>
+    <string name="dimming_options_title">屏幕调光方式</string>
+    <string name="dimming_options_footer">单脉冲下深色模式（自动）切换刷新率时会发生屏幕闪烁及色偏.</string>
+    <string name="dimming_1em">单脉冲 (1EM Pulse)</string>
+    <string name="dimming_3em">三脉冲 (3EM Pulse)</string>
+
+</resources>

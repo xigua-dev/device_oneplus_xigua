@@ -1,12 +1,12 @@
 soong_namespace {
     imports: [
         "hardware/oplus",
-        "vendor/oneplus/aston",
+        "vendor/oneplus/xigua",
     ],
 }
 
 cc_library_static {
-    name: "libperfmgr-ext-aston",
+    name: "libperfmgr-ext-xigua",
     vendor: true,
     srcs: [
         "power-mode.cpp",

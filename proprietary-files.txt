@@ -1,10 +1,10 @@
 ## All proprietary files from this list, unless pinned and noted otherwise,
-## are from OnePlus 12R (CPH2585_14.0.0.830(EX01)).
+## are from OnePlus Ace 2 Pro (PJA110_14.0.0.810(CN01)).
 
 # ACDB
 odm/etc/acdbdata/Audio_Parameter_Version.txt
-odm/etc/acdbdata/FTM/acdb_cal.acdb
 odm/etc/acdbdata/FTM/workspaceFileXml.qwsp
+odm/etc/acdbdata/FTM/acdb_cal.acdb
 odm/etc/acdbdata/acdb_cal.acdb
 
 # Audio firmware
@@ -38,7 +38,6 @@ odm/etc/lvacfs_params/2mic/LVACFS_Parameter_ID6_MIC_Fast.txt
 odm/etc/lvacfs_params/2mic/LVACFS_Parameter_ID7_MIC_Interview.txt
 odm/etc/lvacfs_params/2mic/LVACFS_Parameter_ID8_MIC_Unprocess.txt
 odm/etc/lvacfs_params/2mic/LVACFS_Parameter_ID9_MIC_Voice.txt
-odm/etc/lvacfs_params/2mic/audiozoom_1.txt
 odm/etc/lvacfs_params/2mic/audiozoom_10.txt
 odm/etc/lvacfs_params/2mic/audiozoom_11.txt
 odm/etc/lvacfs_params/2mic/audiozoom_12.txt
@@ -49,13 +48,14 @@ odm/etc/lvacfs_params/2mic/audiozoom_16.txt
 odm/etc/lvacfs_params/2mic/audiozoom_17.txt
 odm/etc/lvacfs_params/2mic/audiozoom_18.txt
 odm/etc/lvacfs_params/2mic/audiozoom_19.txt
-odm/etc/lvacfs_params/2mic/audiozoom_2.txt
+odm/etc/lvacfs_params/2mic/audiozoom_1.txt
 odm/etc/lvacfs_params/2mic/audiozoom_20.txt
 odm/etc/lvacfs_params/2mic/audiozoom_21.txt
 odm/etc/lvacfs_params/2mic/audiozoom_22.txt
 odm/etc/lvacfs_params/2mic/audiozoom_23.txt
 odm/etc/lvacfs_params/2mic/audiozoom_24.txt
 odm/etc/lvacfs_params/2mic/audiozoom_25.txt
+odm/etc/lvacfs_params/2mic/audiozoom_2.txt
 odm/etc/lvacfs_params/2mic/audiozoom_3.txt
 odm/etc/lvacfs_params/2mic/audiozoom_4.txt
 odm/etc/lvacfs_params/2mic/audiozoom_5.txt
@@ -67,88 +67,105 @@ odm/etc/lvacfs_params/2mic/audiozoom_9.txt
 # Camera
 odm/etc/camera/CameraHWConfiguration.config
 odm/etc/camera/camera_engmode.xml
-odm/etc/camera/config/camera_third_party_feature_config.protobuf
+odm/etc/camera/config/oplus_camera_config
+odm/etc/camera/config/oplus_camera_aps_config
+odm/etc/camera/config/imx890
 odm/etc/camera/config/camera_unit_config
 odm/etc/camera/config/camera_unit_feature_config.protobuf
 odm/etc/camera/config/imx355
-odm/etc/camera/config/imx890
-odm/etc/camera/config/oplus_camera_algo_switch_config
-odm/etc/camera/config/oplus_camera_aps_config
-odm/etc/camera/config/oplus_camera_config
-odm/etc/camera/config/oplus_camera_preview_decision_config.json
-odm/etc/camera/config/oplus_preview_decision_params.json
 odm/etc/camera/config/ov02b
-odm/etc/camera/config/pickref_params.xml
+odm/etc/camera/config/oplus_camera_algo_switch_config
 odm/etc/camera/config/s5k3p9
 odm/etc/camera/config/sr_params.xml
 odm/etc/camera/config/video_beauty_default_config
-odm/etc/camera/facesr_hd_composite_ff_ref_4.3.17_qcom8550_qnn_segqnn_qnn2.3.5_qualitybin.model
-odm/etc/camera/settings_fdc.txt
+odm/etc/camera/facesr_hd_composite_ref_4.3.15_qcom8550_qnn_segqnn_qnn2.3_qualityv27.model
 odm/etc/camera/settings_fdc_lite.txt
+odm/etc/camera/settings_fdc.txt
 odm/lib64/android.hardware.camera.common@1.0.so
 odm/lib64/android.hardware.graphics.allocator@2.0.so
 odm/lib64/android.hardware.graphics.allocator@3.0.so
 odm/lib64/android.hardware.graphics.allocator@4.0.so
 odm/lib64/camera.device@3.2-impl.so
 odm/lib64/camera.device@3.3-impl.so
-odm/lib64/camera/awb_parameter_default.bin
-odm/lib64/camera/awb_parameter_imx355_sunny.bin
-odm/lib64/camera/awb_parameter_qtech_imx890.bin
-odm/lib64/camera/awb_parameter_shine_ov02b.bin
-odm/lib64/camera/awb_parameter_sunny_s5k3p9.bin
 odm/lib64/camera/com.qti.sensor.imx355.so
 odm/lib64/camera/com.qti.sensor.imx890.so
-odm/lib64/camera/com.qti.sensor.ov02b.so
-odm/lib64/camera/com.qti.sensor.s5k3p9.so
 odm/lib64/camera/com.qti.sensormodule.qtech_imx890.bin
 odm/lib64/camera/com.qti.sensormodule.shine_ov02b.bin
 odm/lib64/camera/com.qti.sensormodule.sunny_imx355.bin
 odm/lib64/camera/com.qti.sensormodule.sunny_s5k3p9.bin
+odm/lib64/camera/com.qti.sensor.ov02b.so
+odm/lib64/camera/com.qti.sensor.s5k3p9.so
 odm/lib64/camera/com.qti.tuned.imx355_sunny.bin
+odm/lib64/camera/com.qti.tuned.qtech_imx890.bin
 odm/lib64/camera/com.qti.tuned.shine_ov02b.bin
-odm/lib64/camera/libafCustomParam_Cam0.bin
-odm/lib64/camera/libpdCustomParam_Cam0.bin
+odm/lib64/camera/com.qti.tuned.sunny_s5k3p9.bin
+odm/lib64/camera/libafCustomParamMain.bin
 odm/lib64/libarcsoft_hdr_couple_api.so
 odm/lib64/libarcsoft_high_dynamic_range_couple.so
 odm/lib64/libarcsoft_turbo_hdr_grf.so
 odm/lib64/libportrait_repair_qnn.so
 
 # Charger
-odm/firmware/fastchg/23861/charging_hyper_mode_config.txt
+odm/firmware/fastchg/22851/charging_hyper_mode_config.txt
 odm/firmware/fastchg/bms_heating_config.txt
-odm/firmware/fastchg/charge_time_config.csv
 odm/firmware/fastchg/charging_thermal_config_default.txt
 odm/firmware/fastchg/smart_chg_config_table.txt
 vendor/etc/charger_fw_fstab.qti
 
 # Display (Pixelworks)
-odm/etc/inparm/iris7_AA551_P_3_A0004_dsc_cmd_mode_panel/inParm14.txt
-odm/etc/inparm/iris7_AA551_P_3_A0004_dsc_cmd_mode_panel/inParm17.txt
-odm/etc/inparm/iris7_AA551_P_3_A0004_dsc_cmd_mode_panel/inParm2.txt
-odm/etc/inparm/iris7_AA551_P_3_A0004_dsc_cmd_mode_panel/inParm23.txt
-odm/etc/inparm/iris7_AA551_P_3_A0004_dsc_cmd_mode_panel/inParm5.txt
-odm/etc/inparm/iris7_AA551_P_3_A0004_dsc_cmd_mode_panel/inParm8.txt
-odm/etc/inparm/irissoft_AA551_P_3_A0004_dsc_cmd_mode_panel/inParm14.txt
-odm/etc/inparm/irissoft_AA551_P_3_A0004_dsc_cmd_mode_panel/inParm14_2nit.txt
-odm/etc/inparm/irissoft_AA551_P_3_A0004_dsc_cmd_mode_panel/inParm14_low.txt
-odm/etc/inparm/irissoft_AA551_P_3_A0004_dsc_cmd_mode_panel/inParm17.txt
-odm/etc/inparm/irissoft_AA551_P_3_A0004_dsc_cmd_mode_panel/inParm17_2nit.txt
-odm/etc/inparm/irissoft_AA551_P_3_A0004_dsc_cmd_mode_panel/inParm17_low.txt
-odm/etc/inparm/irissoft_AA551_P_3_A0004_dsc_cmd_mode_panel/inParm2.txt
-odm/etc/inparm/irissoft_AA551_P_3_A0004_dsc_cmd_mode_panel/inParm22.txt
-odm/etc/inparm/irissoft_AA551_P_3_A0004_dsc_cmd_mode_panel/inParm23.txt
-odm/etc/inparm/irissoft_AA551_P_3_A0004_dsc_cmd_mode_panel/inParm5.txt
-odm/etc/inparm/irissoft_AA551_P_3_A0004_dsc_cmd_mode_panel/inParm5_2nit.txt
-odm/etc/inparm/irissoft_AA551_P_3_A0004_dsc_cmd_mode_panel/inParm5_low.txt
-odm/etc/inparm/irissoft_AA551_P_3_A0004_dsc_cmd_mode_panel/inParm8.txt
-odm/etc/inparm/irissoft_AA551_P_3_A0004_dsc_cmd_mode_panel/mcfCheck.txt
-odm/etc/inparm/irissoft_AA551_P_3_A0004_dsc_cmd_mode_panel/mcfCheck_2nit.txt
-odm/etc/inparm/irissoft_AA551_P_3_A0004_dsc_cmd_mode_panel/mcfCheck_low.txt
+odm/etc/inparm/iris7_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm14_low.txt
+odm/etc/inparm/iris7_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm2.txt
+odm/etc/inparm/iris7_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm22.txt
+odm/etc/inparm/iris7_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm23.txt
+odm/etc/inparm/iris7_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm5.txt
+odm/etc/inparm/iris7_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm8.txt
+odm/etc/inparm/iris7_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm14.txt
+odm/etc/inparm/iris7_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm17.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm17_6nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm8_10nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm14_6nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm14_low.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm8_low.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm5_6nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm14_20nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm14_40nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/mcfCheck.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/mcfCheck_2nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm17_20nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm17_10nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm8_20nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm5_low.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm2.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm17_40nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm22.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/mcfCheck_low.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm29.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm23.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm5_2nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm5_40nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm14_2nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm8_40nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm38.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm5.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm8.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm5_10nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm14.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm17_2nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm34.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm32.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm5_20nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm35.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm17.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm14_10nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm8_2nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm17_low.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm8_6nit.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm37.txt
+odm/etc/inparm/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel/inParm26.txt
 odm/etc/iris_configs.xml
-odm/etc/irissoft_AA551_P_3_A0004_dsc_cmd_mode_panel.dat
-odm/etc/irissoft_AA551_P_3_A0004_dsc_cmd_mode_panel.fw
-odm/etc/irissoft_AA551_P_3_A0004_dsc_cmd_mode_panel.xml
-odm/firmware/pxlw_i7p_panel_AA551_P_3_A0004_dsc_cmd.fw
+odm/etc/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel.fw
+odm/etc/irissoft_AA536_P_3_A0001_dsc_cmd_mode_panel.xml
+odm/firmware/pxlw_i7_panel_AA536_P_3_A0001_dsc_cmd.fw
 
 # IR
 odm/bin/hw/android.hardware.ir-service
@@ -158,22 +175,19 @@ odm/etc/vintf/manifest/android.hardware.ir-service.xml
 vendor/lib64/hw/consumerir.default.so
 
 # NFC
-odm/etc/nfc/libnfc-mtp-SN220.conf_23861:vendor/etc/libnfc-nxp.conf
-odm/etc/nfc/libnfc-nci.conf_23861:vendor/etc/libnfc-nci.conf
-odm/lib/libsn220u_fw.so:vendor/lib/libsn220u_fw.so
+odm/etc/nfc/libnfc-mtp-SN100.conf_22851:vendor/etc/libnfc-nxp.conf
+odm/etc/nfc/libnfc-nci.conf_22851:vendor/etc/libnfc-nci.conf
+odm/lib/libsn100u_fw.so:vendor/lib/libsn100u_fw.so
 
 # Sensors config
-odm/etc/sensor/config/aston_qrd_ois_system.json
-odm/etc/sensor/config/kailua_mtp_alsps.json
-odm/etc/sensor/config/kailua_mtp_alsps_hw_tcs3720.json
-odm/etc/sensor/config/kailua_mtp_bmi26x.json
-odm/etc/sensor/config/kailua_mtp_bmp380.json
-odm/etc/sensor/config/kailua_mtp_cct_rear.json
-odm/etc/sensor/config/kailua_mtp_freefall.json
 odm/etc/sensor/config/kailua_mtp_mmc56x3x.json
-odm/etc/sensor/config/kailua_mtp_oplus_lay.json
-odm/etc/sensor/config/kailua_mtp_smart_prox.json
+odm/etc/sensor/config/kailua_mtp_icm4x6xx.json
+odm/etc/sensor/config/kailua_mtp_alsps.json
+odm/etc/sensor/config/xigua_qrd_ois_system.json
+odm/etc/sensor/config/kailua_mtp_cct_rear.json
 odm/etc/sensor/config/lux_aod.json
+odm/etc/sensor/config/kailua_mtp_alsps_hw_tcs3720.json
+odm/etc/sensor/config/kailua_mtp_smart_prox.json
 odm/etc/sensor/sensor_config.json
 
 # Oplus Touch
@@ -185,41 +199,25 @@ odm/etc/init/init.touchDaemon.rc
 odm/etc/init/vendor-oplus-hardware-touch-V2-service.rc
 
 # Touchscreen firmware
-odm/firmware/tp/23801/FW_S3910_BOE.img
-odm/firmware/tp/23801/FW_S3910_BOE_FAE.img
-odm/firmware/tp/23801/FW_S3910_BOE_HBP.img
-odm/firmware/tp/23801/FW_S3910_BOE_HBP_FAE.img
-odm/firmware/tp/23801/FW_S3910_TIANMA.img
-odm/firmware/tp/23801/FW_S3910_TIANMA_FAE.img
-odm/firmware/tp/23801/FW_S3910_TIANMA_HBP.img
-odm/firmware/tp/23801/FW_S3910_TIANMA_HBP_FAE.img
-odm/firmware/tp/23801/LIB_S3910_BOE_HBP_TS_ALGO.so
-odm/firmware/tp/23801/LIB_S3910_BOE_HBP_TS_HAL.so
-odm/firmware/tp/23801/LIB_S3910_TIANMA_HBP_TS_ALGO.so
-odm/firmware/tp/23801/LIB_S3910_TIANMA_HBP_TS_HAL.so
-odm/firmware/tp/23801/LIMIT_S3910_BOE.img
-odm/firmware/tp/23801/LIMIT_S3910_BOE_HBP.img
-odm/firmware/tp/23801/LIMIT_S3910_BOE_HBP_AGING.img
-odm/firmware/tp/23801/LIMIT_S3910_TIANMA.img
-odm/firmware/tp/23801/LIMIT_S3910_TIANMA_HBP.img
-odm/firmware/tp/23801/libIfp.so
-odm/firmware/tp/23801/sys_edge_touch_config.xml
-odm/firmware/tp/23801/sys_touch_algo_feature_config.xml
-odm/firmware/tp/23801/sys_touch_function_feature_config.xml
+odm/firmware/tp/22851/libIfp.so
+odm/firmware/tp/22851/LIMIT_S3910_BOE.img
+odm/firmware/tp/22851/LIMIT_S3910_BOE_HBP.img
+odm/firmware/tp/22851/LIB_S3910_BOE_HBP_TS_HAL.so
+odm/firmware/tp/22851/FW_S3910_BOE_HBP_FAE.img
+odm/firmware/tp/22851/LIB_S3910_BOE_HBP_TS_ALGO.so
+odm/firmware/tp/22851/LIMIT_S3910_BOE_AGING.img
+odm/firmware/tp/22851/FW_S3910_BOE_HBP.img
+odm/firmware/tp/22851/sys_edge_touch_config.xml
 
 # UFS
-odm/firmware/ufs/MICRON-MT001TAYAX8U40.bin
-odm/firmware/ufs/MICRON-MT128GBCAV2U31.bin
-odm/firmware/ufs/SAMSUNG-KLUEG4RHGB-B0E1.bin
-odm/firmware/ufs/SAMSUNG-KLUEG4RHHD-B0G1.bin
-odm/firmware/ufs/SAMSUNG-KLUFG8RHHD-B0G1.bin
-odm/firmware/ufs/SAMSUNG-KLUGGARHHD-B0G1.bin
 odm/firmware/ufs/SKhynix-HN8T274EJKX130.bin
+odm/firmware/ufs/SAMSUNG-KLUFG8RHHD-B0G1.bin
 odm/firmware/ufs/move_target_ufs_fw_to_oplusreserve1.sh
+odm/firmware/ufs/SAMSUNG-KLUEG4RHHD-B0G1.bin
 odm/firmware/ufs/ufs_version_config.xml
+odm/firmware/ufs/SAMSUNG-KLUGGARHHD-B0G1.bin
 
 # WiFi
-odm/etc/wifi/kiwi/bdwlan.b0a
-odm/etc/wifi/kiwi/bdwlan.b0ie
 odm/etc/wifi/kiwi/bdwlan.elf
 odm/etc/wifi/kiwi/regdb.bin
+odm/etc/wifi/kiwi/regdb_version

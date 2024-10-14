@@ -849,7 +849,7 @@
         </devicepp>
         <!-- OUT Handset DevicePPs -->
         <devicepp id="PAL_DEVICE_OUT_HANDSET">
-            <keys_and_values StreamType="PAL_STREAM_DEEP_BUFFER,PAL_STREAM_PCM_OFFLOAD,PAL_STREAM_COMPRESSED,PAL_STREAM_LOW_LATENCY,PAL_STREAM_GENERIC,PAL_STREAM_SPATIAL_AUDIO">
+            <keys_and_values StreamType="PAL_STREAM_DEEP_BUFFER,PAL_STREAM_PCM_OFFLOAD,PAL_STREAM_COMPRESSED,PAL_STREAM_LOW_LATENCY,PAL_STREAM_GENERIC">
                 <!-- DEVICERX - HANDSET -->
                 <graph_kv key="0xA2000000" value="0xA2000004"/>
                 <!-- DEVICEPP_RX - DEVICEPP_RX_AUDIO_MBDRC -->
@@ -890,18 +890,6 @@
                 <graph_kv key="0xA2000000" value="0xA2000004"/>
                 <!-- DEVICEPP_RX - DEVICEPP_RX_VOICE RX_NN_NS/CASCADE -->
                 <graph_kv key="0xAC000000" value="0xAC000009"/>
-            </keys_and_values>
-            <keys_and_values StreamType="PAL_STREAM_VOICE_CALL" CustomConfig="HAC">
-                <!-- DEVICERX - HANDSET -->
-                <graph_kv key="0xA2000000" value="0xA2000004"/>
-                <!-- DEVICEPP_RX - DEVICEPP_RX_VOICE_HAC -->
-                <graph_kv key="0xAC000000" value="0xAC000101"/>
-            </keys_and_values>
-            <keys_and_values StreamType="PAL_STREAM_VOIP_RX" CustomConfig="HAC">
-                <!-- DEVICERX - HANDSET -->
-                <graph_kv key="0xA2000000" value="0xA2000004"/>
-                <!-- DEVICEPP_RX - DEVICEPP_RX_VOIP_HAC -->
-                <graph_kv key="0xAC000000" value="0xAC000102"/>
             </keys_and_values>
         </devicepp>
         <!-- OUT Headset and Headphone Digital DevicePPs -->
@@ -1141,12 +1129,6 @@
                 <!-- DEVICEPP_TX - DEVICEPP_TX_VOICE_FLUENCE_ENDFIRE_CASCADE -->
                 <graph_kv key="0xAD000000" value="0xAD00001F"/>
             </keys_and_values>
-            <keys_and_values StreamType="PAL_STREAM_VOICE_CALL" CustomConfig="HAC">
-                <!-- DEVICETX - HANDSETMIC -->
-                <graph_kv key="0xA3000000" value="0xA3000004"/>
-                <!-- DEVICEPP_TX - DEVICEPP_TX_VOICE_HAC -->
-                <graph_kv key="0xAD000000" value="0xAD000102"/>
-            </keys_and_values>
             <keys_and_values StreamType="PAL_STREAM_VOIP_TX">
                 <!-- DEVICETX - HANDSETMIC -->
                 <graph_kv key="0xA3000000" value="0xA3000004"/>
@@ -1170,12 +1152,6 @@
                 <graph_kv key="0xA3000000" value="0xA3000004"/>
                 <!-- DEVICEPP_TX - DEVICEPP_TX_VOIP_FLUENCE_NN_SM -->
                 <graph_kv key="0xAD000000" value="0xAD000010"/>
-            </keys_and_values>
-            <keys_and_values StreamType="PAL_STREAM_VOIP_TX" CustomConfig="HAC">
-                <!-- DEVICETX - HANDSETMIC -->
-                <graph_kv key="0xA3000000" value="0xA3000004"/>
-                <!-- DEVICEPP_TX - DEVICEPP_TX_VOIP_HAC -->
-                <graph_kv key="0xAD000000" value="0xAD000103"/>
             </keys_and_values>
         </devicepp>
         <!-- IN Speaker MIC DevicePPs -->
@@ -1341,16 +1317,8 @@
             <keys_and_values StreamType="PAL_STREAM_DEEP_BUFFER" CustomConfig="ktv-mic">
                 <!-- DEVICETX - HEADPHONE_MIC -->
                 <graph_kv key="0xA3000000" value="0xA3000003"/>
-            </keys_and_values>
-            <keys_and_values StreamType="PAL_STREAM_LOW_LATENCY">
-                <!-- DEVICETX - HEADPHONE_MIC -->
-                <graph_kv key="0xA3000000" value="0xA3000003"/>
-            </keys_and_values>
-            <keys_and_values StreamType="PAL_STREAM_LOW_LATENCY" CustomConfig="ktv-mic2rec">
-                <!-- DEVICETX - HEADPHONE_MIC -->
-                <graph_kv key="0xA3000000" value="0xA3000003"/>
-                <!-- DEVICEPP_TX - DEVICEPP_TX_KARAOKE -->
-                <graph_kv key="0xAD000000" value="0xAD000100"/>
+                <!-- DEVICEPP_TX - DEVICEPP_TX_AUDIO_FLUENCE_SMECNS -->
+                <graph_kv key="0xAD000000" value="0xAD000002"/>
             </keys_and_values>
             <keys_and_values StreamType="PAL_STREAM_ULTRA_LOW_LATENCY">
                 <!-- DEVICETX - HEADPHONE_MIC -->
@@ -1436,16 +1404,8 @@
             <keys_and_values StreamType="PAL_STREAM_DEEP_BUFFER" CustomConfig="ktv-mic">
                 <!-- DEVICETX - USB_TX -->
                 <graph_kv key="0xA3000000" value="0xA3000005"/>
-            </keys_and_values>
-            <keys_and_values StreamType="PAL_STREAM_LOW_LATENCY">
-                <!-- DEVICETX - USB_TX -->
-                <graph_kv key="0xA3000000" value="0xA3000005"/>
-            </keys_and_values>
-            <keys_and_values StreamType="PAL_STREAM_LOW_LATENCY" CustomConfig="ktv-mic2rec">
-                <!-- DEVICETX - USB_TX -->
-                <graph_kv key="0xA3000000" value="0xA3000005"/>
-                <!-- DEVICEPP_TX - DEVICEPP_TX_KARAOKE -->
-                <graph_kv key="0xAD000000" value="0xAD000100"/>
+                <!-- DEVICEPP_TX - DEVICEPP_TX_AUDIO_FLUENCE_SMECNS -->
+                <graph_kv key="0xAD000000" value="0xAD000002"/>
             </keys_and_values>
             <keys_and_values StreamType="PAL_STREAM_ULTRA_LOW_LATENCY">
                 <!-- DEVICETX - USB_TX -->

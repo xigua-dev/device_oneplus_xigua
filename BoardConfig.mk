@@ -7,19 +7,19 @@
 # Include the common OEM chipset BoardConfig.
 include device/oneplus/sm8550-common/BoardConfigCommon.mk
 
-DEVICE_PATH := device/oneplus/aston
+DEVICE_PATH := device/oneplus/xigua
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := OP5D35L1,OP5CF9L1
+TARGET_OTA_ASSERT_DEVICE := OP5943L1
 
 # Display
 TARGET_SCREEN_DENSITY := 420
 
 # Fingerprint
-TARGET_SURFACEFLINGER_UDFPS_LIB := //device/oneplus/aston:libudfps_extension.aston
+TARGET_SURFACEFLINGER_UDFPS_LIB := //device/oneplus/xigua:libudfps_extension.xigua
 
 # Kernel
-TARGET_KERNEL_CONFIG += vendor/oplus/aston.config
+TARGET_KERNEL_CONFIG += vendor/oplus/xigua.config
 
 # Kernel modules
 BOARD_SYSTEM_KERNEL_MODULES_LOAD := $(strip $(shell cat $(DEVICE_PATH)/modules.load.system_dlkm))
@@ -32,8 +32,8 @@ BOOT_KERNEL_MODULES := $(strip $(shell cat $(DEVICE_PATH)/modules.load.recovery 
 SYSTEM_KERNEL_MODULES := $(strip $(shell cat $(DEVICE_PATH)/modules.include.system_dlkm))
 
 # Partitions
-BOARD_ONEPLUS_DYNAMIC_PARTITIONS_SIZE := 16638803968
-BOARD_SUPER_PARTITION_SIZE := 16642998272
+BOARD_ONEPLUS_DYNAMIC_PARTITIONS_SIZE := 16101933056
+BOARD_SUPER_PARTITION_SIZE := 16106127360
 
 # Power
 TARGET_POWERHAL_MODE_EXT := $(DEVICE_PATH)/power/power-mode.cpp
@@ -47,4 +47,4 @@ TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 TARGET_RECOVERY_UI_MARGIN_HEIGHT := 103
 
 # Include the proprietary files BoardConfig.
-include vendor/oneplus/aston/BoardConfigVendor.mk
+include vendor/oneplus/xigua/BoardConfigVendor.mk

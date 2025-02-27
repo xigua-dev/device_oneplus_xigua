@@ -13,7 +13,7 @@ DEVICE_PATH := device/oneplus/xigua
 TARGET_OTA_ASSERT_DEVICE := OP5943L1
 
 # Display
-TARGET_SCREEN_DENSITY := 420
+TARGET_SCREEN_DENSITY := 450
 
 # Fingerprint
 TARGET_SURFACEFLINGER_UDFPS_LIB := //device/oneplus/xigua:libudfps_extension.xigua

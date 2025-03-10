@@ -20,6 +20,10 @@ import android.app.ActivityManager;
 import android.app.ActivityTaskManager;
 import android.app.ActivityTaskManager.RootTaskInfo;
 import android.app.IActivityTaskManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.TaskStackListener;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -27,12 +31,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.PackageManager.PackageInfoFlags;
 import android.media.session.MediaSessionManager;
 import android.os.IBinder;
 import android.os.Handler;
 import android.os.Message;
 import android.os.RemoteException;
+import android.service.notification.StatusBarNotification;
 import android.util.Log;
+
+import org.lineageos.settings.R;
 
 public class FreezerService extends Service {
 
@@ -42,22 +51,45 @@ public class FreezerService extends Service {
     private Handler mHandler;
     private FreezerUtils mFreezerUtils;
 
+    private NotificationManager mNotificationMgr;
     private ActivityManager mActivityManager;
     private MediaSessionManager mMediaSessionManager;
 
     private String mPreviousApp;
     private PackageManager mPm;
 
-    private static final long FORCE_STOP_DEBOUNCE_DELAY = 300000L;
-    private static final long FREEZE_DELAY = 10000L;
+    public static final String NOTIFICATION_CHANNEL = "freezer";
+    public static final String ACTION_FREEZER_UPDATESTS = "freezer.update_sts";
+    public static final String EXTRA_FREEZER_PKG = "freezer.sts.pkg";
+    public static final String EXTRA_FREEZER_OPTION = "freezer.sts.option";
+    public static final int FREEZER_OPTION_STOP = 1;
+    public static final int FREEZER_OPTION_FREEZE = 1 << 1;
+    private static final long FORCE_STOP_DEBOUNCE_DELAY = 60000L;
     private BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             mFreezerUtils.mCurrentPower = intent.getAction();
             mHandler.removeMessages(FreezeHandler.DO_FORCE_STOP);
-            if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
-                Log.i(TAG, "Enqueue doForceStop in " + FORCE_STOP_DEBOUNCE_DELAY + "ms.");
-                mHandler.sendEmptyMessageDelayed(FreezeHandler.DO_FORCE_STOP, FORCE_STOP_DEBOUNCE_DELAY);
+
+            switch(intent.getAction()) {
+                case Intent.ACTION_SCREEN_OFF:
+                    Log.i(TAG, "Enqueue doForceStop in " + FORCE_STOP_DEBOUNCE_DELAY + "ms.");
+                    mHandler.sendEmptyMessageDelayed(FreezeHandler.DO_FORCE_STOP, FORCE_STOP_DEBOUNCE_DELAY);
+                    break;
+                case Intent.ACTION_SCREEN_ON:
+                    mHandler.removeMessages(FreezeHandler.DO_FORCE_STOP);
+                    break;
+                case Intent.ACTION_PACKAGE_ADDED:
+                    String pkgAdd = intent.getData().getSchemeSpecificPart();
+                    notifyPkgAdd(pkgAdd);
+                    break;
+                case Intent.ACTION_PACKAGE_REMOVED:
+                    String pkgRm = intent.getData().getSchemeSpecificPart();
+                    dissmissOnPkgRm(pkgRm);
+                    break;
+                case ACTION_FREEZER_UPDATESTS:
+                    handleUpdate(intent);
+                    break;
             }
         }
     };
@@ -66,6 +98,7 @@ public class FreezerService extends Service {
     public void onCreate() {
         if (DEBUG) Log.d(TAG, "Creating service");
         mHandler = new FreezeHandler();
+        mNotificationMgr = getSystemService(NotificationManager.class);
         mActivityManager = getSystemService(ActivityManager.class);
         mMediaSessionManager = getSystemService(MediaSessionManager.class);
         mPm = getSystemService(PackageManager.class);
@@ -73,6 +106,7 @@ public class FreezerService extends Service {
         registerReceiver();
 
         mActivityManager.radicalFreezingList(mFreezerUtils.getRadicalFreezingUids());
+        createNotificationChannel();
         super.onCreate();
     }
 
@@ -91,7 +125,71 @@ public class FreezerService extends Service {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         filter.addAction(Intent.ACTION_SCREEN_ON);
+        filter.addAction(Intent.ACTION_PACKAGE_ADDED);
+        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        filter.addAction(ACTION_FREEZER_UPDATESTS);
         this.registerReceiver(mIntentReceiver, filter);
+    }
+
+    private void createNotificationChannel() {
+        mNotificationMgr.createNotificationChannel(
+            new NotificationChannel( NOTIFICATION_CHANNEL, NOTIFICATION_CHANNEL, NotificationManager.IMPORTANCE_DEFAULT)
+        );
+    }
+
+    public void notifyPkgAdd(String pkg) {
+        Intent intent_freeze = new Intent(this, FreezerService.class);
+        intent_freeze.putExtra(EXTRA_FREEZER_PKG, pkg);
+        intent_freeze.putExtra(EXTRA_FREEZER_OPTION, FREEZER_OPTION_FREEZE);
+        Intent intent_stop = new Intent(this, FreezerService.class);
+        intent_freeze.putExtra(EXTRA_FREEZER_PKG, pkg);
+        intent_freeze.putExtra(EXTRA_FREEZER_OPTION, FREEZER_OPTION_STOP);
+        Intent intent_both = new Intent(this, FreezerService.class);
+        intent_freeze.putExtra(EXTRA_FREEZER_PKG, pkg);
+        intent_freeze.putExtra(EXTRA_FREEZER_OPTION, FREEZER_OPTION_FREEZE | FREEZER_OPTION_STOP);
+        Notification.Action action_freeze = new Notification.Action(R.drawable.ic_freezer_freeze, "freeze",
+                PendingIntent.getBroadcast(this, uniqueId(), intent_freeze, PendingIntent.FLAG_IMMUTABLE));
+        Notification.Action action_stop = new Notification.Action(R.drawable.ic_freezer_stop, "stop",
+                PendingIntent.getBroadcast(this, uniqueId(), intent_stop, PendingIntent.FLAG_IMMUTABLE));
+        Notification.Action action_both = new Notification.Action(R.drawable.ic_freezer_stop, "freeze+stop",
+                PendingIntent.getBroadcast(this, uniqueId(), intent_both, PendingIntent.FLAG_IMMUTABLE));
+        Notification notification = new Notification.Builder(this, NOTIFICATION_CHANNEL)
+                .setSmallIcon(R.drawable.ic_freezer_freeze)
+                .setContentText("Choose freezer profile for: " + pkg)
+                .addAction(action_freeze)
+                .addAction(action_stop)
+                .addAction(action_both)
+                .build();
+        mNotificationMgr.notify(pkg, uniqueId(), notification);
+    }
+
+    private void dissmissOnPkgRm(String pkg) {
+        for (StatusBarNotification notification : mNotificationMgr.getActiveNotifications()) {
+            if (notification.getTag().equals(pkg)) {
+                mNotificationMgr.cancel(notification.getTag(), notification.getId());
+            }
+        }
+    }
+
+    private void handleUpdate(Intent intent) {
+        String pkg = intent.getStringExtra(EXTRA_FREEZER_PKG);
+        int option = intent.getIntExtra(EXTRA_FREEZER_OPTION, 0);
+
+        try {
+            int uid = mPm.getPackageUid(pkg, PackageInfoFlags.of(PackageManager.MATCH_ALL));
+            if ((option & FREEZER_OPTION_FREEZE) == FREEZER_OPTION_FREEZE) {
+                mFreezerUtils.writeFreezeUid(mActivityManager, uid, true);
+            }
+            if ((option & FREEZER_OPTION_STOP) == FREEZER_OPTION_STOP) {
+                mFreezerUtils.writeStopPackage(pkg, true);
+            }
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int uniqueId() {
+        return (int) (System.currentTimeMillis() % Integer.MAX_VALUE);
     }
 
     class FreezeHandler extends Handler {

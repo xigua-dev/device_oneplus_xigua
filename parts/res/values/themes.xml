@@ -18,7 +18,7 @@
 <resources>
 
     <!-- Using in SubSettings page including injected settings page -->
-    <style name="Theme.SubSettingsBase_v31" parent="Theme.SettingsBase_v31">
+    <style name="Theme.SubSettingsBase_v35" parent="Theme.SettingsBase_v35">
         <!-- Suppress the built-in action bar -->
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>

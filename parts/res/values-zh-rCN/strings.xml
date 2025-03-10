@@ -16,15 +16,11 @@
     <string name="dimming_3em">三脉冲 (3EM Pulse)</string>
 
     <!-- Freezer -->
-    <string name="freezer_title">停止应用</string>
-    <string name="freezer_summary">锁屏且媒体播放(暂停/结束)后停止应用的所有进程.</string>
-    <string name="freezer_category_stop">停止的应用</string>
-    <string name="freezer_category_freeze">冻结的组件</string>
-    <string name="freezer_stop_op1">stop</string>
-    <string name="freezer_stop_op2">freeze</string>
+    <string name="freezer_title">后台进程控制</string>
+    <string name="freezer_summary">(锁屏/切换到后台)时(停止/冻结)应用进程.</string>
+    <string name="freezer_info">\"冻结\" 需启用 \"暂停执行已缓存的应用\" 以生效</string>
+    <string name="freezer_stop_op1">停止</string>
+    <string name="freezer_stop_op2">冻结</string>
     <string name="freezer_stop_enabled">停止应用</string>
     <string name="freezer_stop_disabled">保持运行</string>
-    <string name="freezer_disable_op1">disable</string>
-    <string name="freezer_disable_true">禁用</string>
-    <string name="freezer_disable_false">启用</string>
 </resources>

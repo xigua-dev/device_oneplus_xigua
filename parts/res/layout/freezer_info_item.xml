@@ -20,15 +20,15 @@
     android:paddingStart="?android:attr/listPreferredItemPaddingStart">
 
     <TextView
-        android:id="@+id/category_name"
+        android:id="@+id/info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawableStart="@drawable/settingslib_ic_info_outline_24"
+        android:drawablePadding="12dp"
+        android:paddingStart="12dp"
         android:ellipsize="marquee"
-        android:paddingStart="64dp"
-        android:singleLine="true"
         android:textAlignment="viewStart"
-        android:textAppearance="@android:style/TextAppearance.Material.Body2"
-        android:textColor="?android:attr/textColorPrimary" />
+        android:textColor="?android:attr/textColorSecondary" />
 
 </LinearLayout>
 

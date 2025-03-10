@@ -192,33 +192,17 @@ public class RefreshSettingsFragment extends PreferenceFragment
         mSession.rebuild(mActivityFilter, ApplicationsState.ALPHA_COMPARATOR);
     }
 
-    private int getStateDrawable(int state) {
-        switch (state) {
-            case RefreshUtils.STATE_STANDARD:
-                return R.drawable.ic_refresh_60;
-            case RefreshUtils.STATE_HIGH:
-                return R.drawable.ic_refresh_90;
-            case RefreshUtils.STATE_MAXIMUM:
-                return R.drawable.ic_refresh_120;
-            case RefreshUtils.STATE_DEFAULT:
-            default:
-                return R.drawable.ic_refresh_default;
-        }
-    }
-
     private class ViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private Spinner mode;
         private ImageView icon;
         private View rootView;
-        private ImageView stateIcon;
 
         private ViewHolder(View view) {
             super(view);
             this.title = view.findViewById(R.id.app_name);
             this.mode = view.findViewById(R.id.app_mode);
             this.icon = view.findViewById(R.id.app_icon);
-            this.stateIcon = view.findViewById(R.id.state);
             this.rootView = view;
 
             view.setTag(this);
@@ -316,7 +300,6 @@ public class RefreshSettingsFragment extends PreferenceFragment
             int packageState = mRefreshUtils.getStateForPackage(entry.info.packageName);
             holder.mode.setSelection(packageState, false);
             holder.mode.setTag(entry);
-            holder.stateIcon.setImageResource(getStateDrawable(packageState));
         }
 
         private void setEntries(List<ApplicationsState.AppEntry> entries,

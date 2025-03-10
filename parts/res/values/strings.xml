@@ -31,15 +31,11 @@
     <string name="dimming_3em">3EM Pulse</string>
 
     <!-- Freezer -->
-    <string name="freezer_title">Stop Apps</string>
-    <string name="freezer_summary">Stop all processes after sleeping and media being (paused/ended).</string>
-    <string name="freezer_category_stop">Apps to stop</string>
-    <string name="freezer_category_freeze">Components to freeze</string>
+    <string name="freezer_title">Freezer</string>
+    <string name="freezer_summary">(Stop/Freeze) processes after (backgrounded/lock screen).</string>
+    <string name="freezer_info">\"freeze\" requires \"Suspend execution for cached apps\" to be enabled to work.</string>
     <string name="freezer_stop_op1">stop</string>
     <string name="freezer_stop_op2">freeze</string>
     <string name="freezer_stop_enabled">Stop application</string>
     <string name="freezer_stop_disabled">Keep running</string>
-    <string name="freezer_disable_op1">disable</string>
-    <string name="freezer_disable_true">Disabled</string>
-    <string name="freezer_disable_false">Enabled</string>
 </resources>

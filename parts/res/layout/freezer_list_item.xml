@@ -15,6 +15,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
+    android:orientation="horizontal"
     android:paddingStart="?android:attr/listPreferredItemPaddingStart"
     android:paddingTop="12dp"
     android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
@@ -26,7 +27,7 @@
         android:layout_height="@android:dimen/app_icon_size"
         android:layout_marginEnd="8dp"
         android:contentDescription="@null"
-        android:scaleType="centerInside"/>
+        android:scaleType="centerInside" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -64,15 +65,19 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_op2"
-            style="@style/Widget.Material3.Chip.Filter"
+            style="@style/Widget.Material3.Chip.Suggestion"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:chipIcon="@drawable/selector_freezer_freeze"
+            app:chipIconVisible="true" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_op1"
-            style="@style/Widget.Material3.Chip.Filter"
+            style="@style/Widget.Material3.Chip.Suggestion"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:chipIcon="@drawable/selector_freezer_stop"
+            app:chipIconVisible="true" />
 
     </com.google.android.material.chip.ChipGroup>
 </LinearLayout>

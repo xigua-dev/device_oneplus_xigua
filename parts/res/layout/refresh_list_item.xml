@@ -29,35 +29,22 @@
         android:contentDescription="@null"
         android:scaleType="centerInside" />
 
-    <LinearLayout
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:textAlignment="viewStart"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textColor="?android:attr/textColorPrimary" />
 
-        <TextView
-            android:id="@+id/app_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:ellipsize="marquee"
-            android:singleLine="true"
-            android:textAlignment="viewStart"
-            android:textAppearance="?android:attr/textAppearanceListItem"
-            android:textColor="?android:attr/textColorPrimary" />
-
-        <Spinner
-            android:id="@+id/app_mode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/state"
+    <Spinner
+        android:id="@+id/app_mode"
+        android:paddingEnd="16dp"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:padding="8dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_refresh_default" />
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

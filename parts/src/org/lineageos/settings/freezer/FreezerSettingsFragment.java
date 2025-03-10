@@ -17,14 +17,10 @@ package org.lineageos.settings.freezer;
 
 import android.annotation.Nullable;
 import android.app.ActivityManager;
-import android.content.ComponentName;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,18 +40,17 @@ import com.android.settingslib.applications.ApplicationsState;
 import org.lineageos.settings.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class FreezerSettingsFragment extends PreferenceFragment implements ApplicationsState.Callbacks {
 
     private static final String TAG = "Freezer";
 
-    private ConcatAdapter mRVAdapter;
+    private static final int HOLDER_TYPE_APP = 0x0;
+    private static final int HOLDER_TYPE_INFO = 0x1;
+
     private UserPackagesAdapter mUserPackagesAdapter;
-    private ExtraComponentsAdapter mExtraAdapter;
     private PackageManager mPm;
     private ActivityManager mAm;
     private ApplicationsState mApplicationsState;
@@ -85,9 +80,6 @@ public class FreezerSettingsFragment extends PreferenceFragment implements Appli
         mAppFilter = new AppFilter(mPm);
 
         mUserPackagesAdapter = new UserPackagesAdapter();
-        mExtraAdapter = new ExtraComponentsAdapter();
-
-        mRVAdapter = new ConcatAdapter(new ConcatAdapter.Config.Builder().setIsolateViewTypes(false).build(), mUserPackagesAdapter, mExtraAdapter);
     }
 
     @Override
@@ -100,13 +92,8 @@ public class FreezerSettingsFragment extends PreferenceFragment implements Appli
         super.onViewCreated(view, savedInstanceState);
 
         mAppsRecyclerView = view.findViewById(R.id.thermal_rv_view);
-        // MaterialDividerItemDecoration divider = new MaterialDividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
-        // divider.setDividerInsetStartResource(getContext(), R.dimen.inset_divider);
-        // divider.setDividerInsetEndResource(getContext(), R.dimen.inset_divider);
-        // divider.setLastItemDecorated(false);
-        // mAppsRecyclerView.addItemDecoration(divider);
         mAppsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAppsRecyclerView.setAdapter(mRVAdapter);
+        mAppsRecyclerView.setAdapter(mUserPackagesAdapter);
     }
 
 
@@ -173,21 +160,18 @@ public class FreezerSettingsFragment extends PreferenceFragment implements Appli
             return a + c - b - d;
         }).collect(Collectors.toList());
         mUserPackagesAdapter.setEntries(userEntries);
-
-        List<ApplicationsState.AppEntry> extraEntries = entries.stream().filter(appEntry -> mFreezerUtils.sDisableSet.stream().anyMatch(p -> p.getPackageName().equals(appEntry.info.packageName))).collect(Collectors.toList());
-        mExtraAdapter.setEntries(extraEntries);
     }
 
     private void rebuild() {
         mSession.rebuild(mAppFilter, ApplicationsState.ALPHA_COMPARATOR);
     }
 
-    private class CategoryViewHolder extends RecyclerView.ViewHolder {
-        private TextView title;
+    private class InfoViewHolder extends RecyclerView.ViewHolder {
+        private TextView info;
 
-        private CategoryViewHolder(View view) {
+        private InfoViewHolder(View view) {
             super(view);
-            this.title = view.findViewById(R.id.category_name);
+            this.info = view.findViewById(R.id.info);
 
             view.setTag(this);
         }
@@ -216,12 +200,12 @@ public class FreezerSettingsFragment extends PreferenceFragment implements Appli
 
     private class UserPackagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-        private View.OnClickListener stopListener = pref -> {
+        private final View.OnClickListener stopListener = pref -> {
             final ApplicationsState.AppEntry entry = (ApplicationsState.AppEntry) pref.getTag();
             mFreezerUtils.writeStopPackage(entry.info.packageName, ((Chip) pref).isChecked());
             notifyDataSetChanged();
         };
-        private View.OnClickListener freezeListener = pref -> {
+        private final View.OnClickListener freezeListener = pref -> {
             final ApplicationsState.AppEntry entry = (ApplicationsState.AppEntry) pref.getTag();
             mFreezerUtils.writeFreezeUid(mAm, entry.info.uid, ((Chip) pref).isChecked());
             notifyDataSetChanged();
@@ -236,14 +220,14 @@ public class FreezerSettingsFragment extends PreferenceFragment implements Appli
 
         @Override
         public int getItemViewType(int position) {
-            return position;
+            return position == mEntries.size() ? HOLDER_TYPE_INFO : HOLDER_TYPE_APP;
         }
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            if (viewType == 0) {
-                CategoryViewHolder holder = new CategoryViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.freezer_category_item, parent, false));
+            if (viewType == HOLDER_TYPE_INFO) {
+                InfoViewHolder holder = new InfoViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.freezer_info_item, parent, false));
                 return holder;
             }
             AppViewHolder holder = new AppViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.freezer_list_item, parent, false));
@@ -253,12 +237,12 @@ public class FreezerSettingsFragment extends PreferenceFragment implements Appli
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-            if (holder instanceof CategoryViewHolder) {
-                ((CategoryViewHolder) holder).title.setText(R.string.freezer_category_stop);
+            if (holder instanceof InfoViewHolder) {
+                ((InfoViewHolder) holder).info.setText(R.string.freezer_info);
                 return;
             }
 
-            ApplicationsState.AppEntry entry = mEntries.get(position - 1);
+            ApplicationsState.AppEntry entry = mEntries.get(position);
 
             if (entry == null) {
                 return;
@@ -274,7 +258,6 @@ public class FreezerSettingsFragment extends PreferenceFragment implements Appli
             appViewHolder.op2.setOnClickListener(freezeListener);
 
             appViewHolder.title.setText(entry.label);
-            appViewHolder.rootView.setOnClickListener(v -> appViewHolder.op1.performClick());
             mApplicationsState.ensureIcon(entry);
             appViewHolder.icon.setImageDrawable(entry.icon);
 
@@ -292,101 +275,6 @@ public class FreezerSettingsFragment extends PreferenceFragment implements Appli
             notifyDataSetChanged();
         }
     }
-
-    private class ExtraComponentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
-
-        private List<ApplicationsState.AppEntry> mEntries = new ArrayList<>();
-        private List<ComponentName> mSortedCN = new ArrayList<>(mFreezerUtils.sDisableSet);
-
-        @Override
-        public int getItemCount() {
-            return mSortedCN.size() + 1;
-        }
-
-        @Override
-        public int getItemViewType(int position) {
-            return position;
-        }
-
-        @NonNull
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            if (viewType == 0) {
-                CategoryViewHolder holder = new CategoryViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.freezer_category_item, parent, false));
-                return holder;
-            }
-            AppViewHolder holder = new AppViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.freezer_list_item, parent, false));
-            return holder;
-        }
-
-        @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            if (holder instanceof CategoryViewHolder) {
-                ((CategoryViewHolder) holder).title.setText(R.string.freezer_category_freeze);
-                return;
-            }
-
-            ComponentName comp = mSortedCN.get(position - 1);
-
-            if (comp == null) {
-                return;
-            }
-
-            AppViewHolder appViewHolder = (AppViewHolder) holder;
-
-            appViewHolder.op1.setVisibility(View.VISIBLE);
-            appViewHolder.op1.setText(R.string.freezer_disable_op1);
-            appViewHolder.op1.setOnClickListener(this);
-            appViewHolder.op2.setVisibility(View.GONE);
-
-            appViewHolder.title.setText(comp.flattenToShortString());
-            appViewHolder.rootView.setOnClickListener(v -> appViewHolder.op1.performClick());
-
-            Optional<ApplicationsState.AppEntry> entry = mEntries.stream().filter(p -> p.info.packageName.equals(comp.getPackageName())).findAny();
-            if (entry.isPresent()) {
-                ApplicationsState.AppEntry appEntry = entry.get();
-                mApplicationsState.ensureIcon(appEntry);
-                appViewHolder.icon.setImageDrawable(appEntry.icon);
-            }
-
-            try {
-                boolean disabled = mPm.getComponentEnabledSetting(comp) == PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
-                appViewHolder.status.setText(disabled ? R.string.freezer_disable_true : R.string.freezer_disable_false);
-                appViewHolder.op1.setTag(comp);
-                appViewHolder.op1.setChecked(disabled);
-            } catch (Exception e) {
-                appViewHolder.title.setEnabled(false);
-                appViewHolder.status.setEnabled(false);
-                appViewHolder.icon.setEnabled(false);
-                appViewHolder.rootView.setEnabled(false);
-                appViewHolder.op1.setEnabled(false);
-                Log.e(TAG, e.getMessage());
-            }
-        }
-
-        @Override
-        public void onClick(View pref) {
-            final ComponentName component = (ComponentName) pref.getTag();
-            mPm.setComponentEnabledSetting(component, ((Chip) pref).isChecked() ? PackageManager.COMPONENT_ENABLED_STATE_DISABLED : PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.SYNCHRONOUS);
-            notifyDataSetChanged();
-        }
-
-        private void setEntries(List<ApplicationsState.AppEntry> entries) {
-            mEntries = entries;
-            mSortedCN = mFreezerUtils.sDisableSet.stream().sorted((e1, e2) -> {
-                try {
-                    int a = mPm.getComponentEnabledSetting(e1) == PackageManager.COMPONENT_ENABLED_STATE_DISABLED ? 0 : 1;
-                    int b = mPm.getComponentEnabledSetting(e2) == PackageManager.COMPONENT_ENABLED_STATE_DISABLED ? 0 : 1;
-                    return a - b;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return 0;
-            }).collect(Collectors.toList());
-            notifyDataSetChanged();
-        }
-    }
-
 
     private class AppFilter implements ApplicationsState.AppFilter {
 
